@@ -19,6 +19,8 @@ Workshop Spring Boot com kotlin e MongoDb
 
 * Spring Web: Crie aplicativos da web, incluindo RESTful, usando Spring MVC. Usa Apache Tomcat como o contêiner embutido padrão.
 
+* MongoDB: Armazene dados em documentos flexíveis do tipo JSON, o que significa que os campos podem variar de documento para documento e a estrutura de dados pode ser alterada ao longo do tempo.
+
 ## Porque Kotlin
 
 * Com o conhecimento da linguagem Kotlin, é possivel desenvolver aplicações mobile, backend e web
