@@ -1,6 +1,13 @@
 # kotlin-spring-mongodb
 Workshop Spring Boot com kotlin e MongoDb
 
+# Descrição
+* O projeto será um sistema de usuarios que possui post, e estes post tem comentarios
+
+## Modelo de dados
+
+![alt text](https://github.com/wagnersistemalima/kotlin-spring-mongodb/blob/main/imagens/modelo.png)
+
 ## Setup do Projeto 
 
 * Linguagem de programação: Kotlin
