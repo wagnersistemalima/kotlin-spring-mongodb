@@ -48,8 +48,6 @@ class BuscarUserServiceTest {
 
         // cenario
 
-        val user = Optional.of(User(name = "Marina Lima", email = "marina@gmail.com"))
-
         val idNaoExistente = UUID.randomUUID().toString()
 
         // ação
