@@ -1,6 +1,6 @@
 package br.com.wagner.workshopmongo.user.controller
 
-import br.com.wagner.workshopmongo.user.service.UserService
+import br.com.wagner.workshopmongo.user.service.ListarUserService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("users")
-class UserController(@field:Autowired val userService: UserService) {
+class ListarUserController(@field:Autowired val userService: ListarUserService) {
 
-    val logger = LoggerFactory.getLogger(UserController::class.java)
+    val logger = LoggerFactory.getLogger(ListarUserController::class.java)
 
     // end point buscar todos usuarios / get
 

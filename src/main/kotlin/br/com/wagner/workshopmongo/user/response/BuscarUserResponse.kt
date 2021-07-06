@@ -2,7 +2,8 @@ package br.com.wagner.workshopmongo.user.response
 
 import br.com.wagner.workshopmongo.user.model.User
 
-data class UserResponse(
+data class BuscarUserResponse(
+
     val id: String,
     val name: String,
     val email: String

@@ -2,10 +2,9 @@ package br.com.wagner.workshopmongo.integracaoTest
 
 import br.com.wagner.workshopmongo.user.model.User
 import br.com.wagner.workshopmongo.user.repository.UserRepository
-import br.com.wagner.workshopmongo.user.response.UserResponse
-import br.com.wagner.workshopmongo.user.service.UserService
+import br.com.wagner.workshopmongo.user.response.ListaUserResponse
+import br.com.wagner.workshopmongo.user.service.ListarUserService
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,7 +21,7 @@ import java.util.stream.Collectors
 @SpringBootTest
 @AutoConfigureDataMongo
 @AutoConfigureMockMvc
-class UserControllerTest {
+class ListarUserControllerTest {
 
     @field:Autowired
     lateinit var userRepository: UserRepository
@@ -34,7 +33,7 @@ class UserControllerTest {
     lateinit var objectMapper: ObjectMapper
 
     @field:Autowired
-    lateinit var userService: UserService
+    lateinit var userService: ListarUserService
 
     // rodar antes de cada teste
 
@@ -60,7 +59,7 @@ class UserControllerTest {
         // ação
 
         val list = userRepository.findAll()
-        val response = list.stream().map { user -> UserResponse(user) }.collect(Collectors.toList())
+        val response = list.stream().map { user -> ListaUserResponse(user) }.collect(Collectors.toList())
 
         mockMvc.perform(MockMvcRequestBuilders.get(uri).contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(200))
@@ -71,7 +70,7 @@ class UserControllerTest {
 
     // metodo para desserializae objeto de resposta
 
-    fun toJson(response: MutableList<UserResponse>): String {
+    fun toJson(response: MutableList<ListaUserResponse>): String {
         return objectMapper.writeValueAsString(response)
     }
 }

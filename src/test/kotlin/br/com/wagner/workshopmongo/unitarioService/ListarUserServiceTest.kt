@@ -2,8 +2,8 @@ package br.com.wagner.workshopmongo.unitarioService
 
 import br.com.wagner.workshopmongo.user.model.User
 import br.com.wagner.workshopmongo.user.repository.UserRepository
-import br.com.wagner.workshopmongo.user.response.UserResponse
-import br.com.wagner.workshopmongo.user.service.UserService
+import br.com.wagner.workshopmongo.user.response.ListaUserResponse
+import br.com.wagner.workshopmongo.user.service.ListarUserService
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,10 +14,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.util.stream.Collectors
 
 @ExtendWith(SpringExtension::class)
-class UserServiceTest {
+class ListarUserServiceTest {
 
     @field:InjectMocks
-    lateinit var userService: UserService
+    lateinit var userService: ListarUserService
 
     @field:Mock
     lateinit var userRepository: UserRepository
@@ -37,7 +37,7 @@ class UserServiceTest {
         list.add(user1)
         list.add(user2)
 
-        val response = list.stream().map { user -> UserResponse(user) }.collect(Collectors.toList())
+        val response = list.stream().map { user -> ListaUserResponse(user) }.collect(Collectors.toList())
 
         // ação
 
