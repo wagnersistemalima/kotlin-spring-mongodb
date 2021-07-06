@@ -1,4 +1,4 @@
-package br.com.wagner.workshopmongo
+package br.com.wagner.workshopmongo.integracaoTest
 
 import br.com.wagner.workshopmongo.user.model.User
 import br.com.wagner.workshopmongo.user.repository.UserRepository
