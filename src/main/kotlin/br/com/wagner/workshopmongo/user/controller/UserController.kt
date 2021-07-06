@@ -1,6 +1,6 @@
 package br.com.wagner.workshopmongo.user.controller
 
-import br.com.wagner.workshopmongo.service.UserService
+import br.com.wagner.workshopmongo.user.service.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity

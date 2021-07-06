@@ -1,6 +1,6 @@
-package br.com.wagner.workshopmongo.service
+package br.com.wagner.workshopmongo.user.service
 
-import br.com.wagner.workshopmongo.response.UserResponse
+import br.com.wagner.workshopmongo.user.response.UserResponse
 import br.com.wagner.workshopmongo.user.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

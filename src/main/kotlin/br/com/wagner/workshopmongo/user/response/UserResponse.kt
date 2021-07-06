@@ -1,4 +1,4 @@
-package br.com.wagner.workshopmongo.response
+package br.com.wagner.workshopmongo.user.response
 
 import br.com.wagner.workshopmongo.user.model.User
 
