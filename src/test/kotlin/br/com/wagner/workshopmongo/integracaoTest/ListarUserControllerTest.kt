@@ -5,6 +5,7 @@ import br.com.wagner.workshopmongo.user.repository.UserRepository
 import br.com.wagner.workshopmongo.user.response.ListaUserResponse
 import br.com.wagner.workshopmongo.user.service.ListarUserService
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -42,6 +43,12 @@ class ListarUserControllerTest {
         userRepository.deleteAll()
     }
 
+    // rodar depois de cada teste
+
+    @AfterEach
+    internal fun tearDown() {
+        userRepository.deleteAll()
+    }
 
     @Test
     fun `deve retornar 200, com uma lista de usuarios`() {

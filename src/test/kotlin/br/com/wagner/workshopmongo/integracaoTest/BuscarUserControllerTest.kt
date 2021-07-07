@@ -5,6 +5,7 @@ import br.com.wagner.workshopmongo.user.repository.UserRepository
 import br.com.wagner.workshopmongo.user.response.BuscarUserResponse
 import br.com.wagner.workshopmongo.user.service.BuscarUserService
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mock
@@ -14,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataM
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
@@ -23,6 +25,7 @@ import java.util.*
 @SpringBootTest
 @AutoConfigureDataMongo
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 class BuscarUserControllerTest {
 
     @field:Autowired
@@ -40,6 +43,12 @@ class BuscarUserControllerTest {
     // rodar antes de cada teste
     @BeforeEach
     internal fun setUp() {
+        userRepository.deleteAll()
+    }
+
+    // rodar depois de cada teste
+    @AfterEach
+    internal fun tearDown() {
         userRepository.deleteAll()
     }
 

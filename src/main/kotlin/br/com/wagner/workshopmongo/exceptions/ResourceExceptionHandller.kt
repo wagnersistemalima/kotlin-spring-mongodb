@@ -26,10 +26,21 @@ class ResourceExceptionHandller {
         return ResponseEntity.status(status).body(error)
     }
 
+    // metodo para captar erro de validação de objeto não encontrado
+
     @ExceptionHandler(ResourceNotFoundException::class)
     fun notFound(e: ResourceNotFoundException, request: HttpServletRequest): ResponseEntity<Any> {
         val status = HttpStatus.NOT_FOUND
         val error = ValidationError(Instant.now(), status.value(), "Entity notFound", message = e.message!!, path = request.requestURI)
+        return ResponseEntity.status(status).body(error)
+    }
+
+    // metodo para captar exceção de validação campo unico
+
+    @ExceptionHandler(GenericValidationException::class)
+    fun notFound(e: GenericValidationException, request: HttpServletRequest): ResponseEntity<Any> {
+        val status = HttpStatus.BAD_REQUEST
+        val error = ValidationError(Instant.now(), status.value(), "Erro Validation", message = e.message!!, path = request.requestURI)
         return ResponseEntity.status(status).body(error)
     }
 
