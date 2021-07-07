@@ -12,9 +12,17 @@ class User(
     val id: String = UUID.randomUUID().toString(),
 
     val name: String,
-    val email: String
+    var email: String
 ){
     var dataRegistro = LocalDateTime.now()
+
+    var updateRegistro: LocalDateTime? = null
+
+    // metodo auxiliar para toda vez que atualizar um usuario, salvar o instante
+
+    fun update() {
+        updateRegistro = LocalDateTime.now()
+    }
 
 }
 
