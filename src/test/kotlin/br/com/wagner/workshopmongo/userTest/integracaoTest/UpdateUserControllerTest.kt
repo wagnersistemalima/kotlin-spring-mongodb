@@ -1,9 +1,8 @@
-package br.com.wagner.workshopmongo.integracaoTest
+package br.com.wagner.workshopmongo.userTest.integracaoTest
 
 import br.com.wagner.workshopmongo.user.model.User
 import br.com.wagner.workshopmongo.user.repository.UserRepository
 import br.com.wagner.workshopmongo.user.request.UpdateUserRequest
-import br.com.wagner.workshopmongo.user.response.BuscarUserResponse
 import br.com.wagner.workshopmongo.user.service.UpdateUserService
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.AfterEach

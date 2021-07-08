@@ -1,8 +1,10 @@
-package br.com.wagner.workshopmongo.integracaoTest
+package br.com.wagner.workshopmongo.userTest.integracaoTest
 
 import br.com.wagner.workshopmongo.user.model.User
 import br.com.wagner.workshopmongo.user.repository.UserRepository
-import br.com.wagner.workshopmongo.user.service.DeleteUserService
+import br.com.wagner.workshopmongo.user.response.BuscarUserResponse
+import br.com.wagner.workshopmongo.user.service.BuscarUserService
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -24,16 +26,19 @@ import java.util.*
 @AutoConfigureDataMongo
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class DeleteUserControllerTest {
+class BuscarUserControllerTest {
 
     @field:Autowired
     lateinit var userRepository: UserRepository
 
-    @field:Autowired
-    lateinit var deleteUserService: DeleteUserService
+    @field:Mock
+    lateinit var buscarUserService: BuscarUserService
 
     @field:Autowired
     lateinit var mockMvc: MockMvc
+
+    @field:Autowired
+    lateinit var objectMapper: ObjectMapper
 
     // rodar antes de cada teste
     @BeforeEach
@@ -50,46 +55,61 @@ class DeleteUserControllerTest {
     // 1 cenario de testes/ caminho feliz
 
     @Test
-    fun `deve retornar 204, deletar um usuario por id`() {
+    fun `deve retornar 200, com os dados do usuario pesquisado pelo id`() {
 
         // cenario
 
-        val user = User(name = "Carla", email = "carla@gmail.com")
+        val user = User(name = "Wagner", email = "wagner@gmail.com")
         userRepository.save(user)
 
-        val uri = UriComponentsBuilder.fromUriString("/users/{id}").buildAndExpand(user.id).toUri()
+        val idExistente = user.id
+
+        val userResponse = userRepository.findById(idExistente)
+
+        val response = BuscarUserResponse(userResponse.get())
+
+        val uri = UriComponentsBuilder.fromUriString("/users/{id}").buildAndExpand(idExistente).toUri()
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders
-            .delete(uri)
-            .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.status().`is`(204))
+        Mockito.`when`(buscarUserService.findById(idExistente)).thenReturn(userResponse.get())
 
-        //assertvivas
+        mockMvc.perform(MockMvcRequestBuilders.get(uri)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(MockMvcResultMatchers.status().`is`(200))
+            .andExpect(MockMvcResultMatchers.content().json(tojson(response)))
+
+        //assertivas
     }
 
     // 2 cenario de testes
 
     @Test
-    fun `deve retornar 404, ao tentar deletar um usuario por id inexistente`() {
+    fun `deve retornar 404, recurso não encontrado quando id buscado não existir`() {
 
         // cenario
 
-        val user = User(name = "Carla", email = "carla@gmail.com")
+        val user = User(name = "Wagner", email = "wagner@gmail.com")
         userRepository.save(user)
 
-        val idInexistente = UUID.randomUUID().toString()
+        val idNaoExiste = UUID.randomUUID().toString()
 
-        val uri = UriComponentsBuilder.fromUriString("/users/{id}").buildAndExpand(idInexistente).toUri()
+        val uri = UriComponentsBuilder.fromUriString("/users/{id}").buildAndExpand(idNaoExiste).toUri()
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders
-            .delete(uri)
+        mockMvc.perform(MockMvcRequestBuilders.get(uri)
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(404))
 
-        //assertvivas
+
+        //assertivas
     }
+
+    // metodo para desserializar objeto de resposta
+
+    fun tojson(response: BuscarUserResponse): String {
+        return objectMapper.writeValueAsString(response)
+    }
+
 }

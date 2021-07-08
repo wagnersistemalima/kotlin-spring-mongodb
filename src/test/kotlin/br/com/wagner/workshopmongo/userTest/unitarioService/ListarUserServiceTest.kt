@@ -1,4 +1,4 @@
-package br.com.wagner.workshopmongo.unitarioService
+package br.com.wagner.workshopmongo.userTest.unitarioService
 
 import br.com.wagner.workshopmongo.user.model.User
 import br.com.wagner.workshopmongo.user.repository.UserRepository

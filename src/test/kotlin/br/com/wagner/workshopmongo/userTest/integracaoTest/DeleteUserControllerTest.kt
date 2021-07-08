@@ -1,15 +1,11 @@
-package br.com.wagner.workshopmongo.integracaoTest
+package br.com.wagner.workshopmongo.userTest.integracaoTest
 
 import br.com.wagner.workshopmongo.user.model.User
 import br.com.wagner.workshopmongo.user.repository.UserRepository
-import br.com.wagner.workshopmongo.user.response.BuscarUserResponse
-import br.com.wagner.workshopmongo.user.service.BuscarUserService
-import com.fasterxml.jackson.databind.ObjectMapper
+import br.com.wagner.workshopmongo.user.service.DeleteUserService
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.Mock
-import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -26,19 +22,16 @@ import java.util.*
 @AutoConfigureDataMongo
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class BuscarUserControllerTest {
+class DeleteUserControllerTest {
 
     @field:Autowired
     lateinit var userRepository: UserRepository
 
-    @field:Mock
-    lateinit var buscarUserService: BuscarUserService
+    @field:Autowired
+    lateinit var deleteUserService: DeleteUserService
 
     @field:Autowired
     lateinit var mockMvc: MockMvc
-
-    @field:Autowired
-    lateinit var objectMapper: ObjectMapper
 
     // rodar antes de cada teste
     @BeforeEach
@@ -55,61 +48,46 @@ class BuscarUserControllerTest {
     // 1 cenario de testes/ caminho feliz
 
     @Test
-    fun `deve retornar 200, com os dados do usuario pesquisado pelo id`() {
+    fun `deve retornar 204, deletar um usuario por id`() {
 
         // cenario
 
-        val user = User(name = "Wagner", email = "wagner@gmail.com")
+        val user = User(name = "Carla", email = "carla@gmail.com")
         userRepository.save(user)
 
-        val idExistente = user.id
-
-        val userResponse = userRepository.findById(idExistente)
-
-        val response = BuscarUserResponse(userResponse.get())
-
-        val uri = UriComponentsBuilder.fromUriString("/users/{id}").buildAndExpand(idExistente).toUri()
+        val uri = UriComponentsBuilder.fromUriString("/users/{id}").buildAndExpand(user.id).toUri()
 
         // ação
 
-        Mockito.`when`(buscarUserService.findById(idExistente)).thenReturn(userResponse.get())
-
-        mockMvc.perform(MockMvcRequestBuilders.get(uri)
+        mockMvc.perform(MockMvcRequestBuilders
+            .delete(uri)
             .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.status().`is`(200))
-            .andExpect(MockMvcResultMatchers.content().json(tojson(response)))
+            .andExpect(MockMvcResultMatchers.status().`is`(204))
 
-        //assertivas
+        //assertvivas
     }
 
     // 2 cenario de testes
 
     @Test
-    fun `deve retornar 404, recurso não encontrado quando id buscado não existir`() {
+    fun `deve retornar 404, ao tentar deletar um usuario por id inexistente`() {
 
         // cenario
 
-        val user = User(name = "Wagner", email = "wagner@gmail.com")
+        val user = User(name = "Carla", email = "carla@gmail.com")
         userRepository.save(user)
 
-        val idNaoExiste = UUID.randomUUID().toString()
+        val idInexistente = UUID.randomUUID().toString()
 
-        val uri = UriComponentsBuilder.fromUriString("/users/{id}").buildAndExpand(idNaoExiste).toUri()
+        val uri = UriComponentsBuilder.fromUriString("/users/{id}").buildAndExpand(idInexistente).toUri()
 
         // ação
 
-        mockMvc.perform(MockMvcRequestBuilders.get(uri)
+        mockMvc.perform(MockMvcRequestBuilders
+            .delete(uri)
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(404))
 
-
-        //assertivas
+        //assertvivas
     }
-
-    // metodo para desserializar objeto de resposta
-
-    fun tojson(response: BuscarUserResponse): String {
-        return objectMapper.writeValueAsString(response)
-    }
-
 }

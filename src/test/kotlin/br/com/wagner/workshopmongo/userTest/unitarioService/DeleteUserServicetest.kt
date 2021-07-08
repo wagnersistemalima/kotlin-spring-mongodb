@@ -1,11 +1,10 @@
-package br.com.wagner.workshopmongo.unitarioService
+package br.com.wagner.workshopmongo.userTest.unitarioService
 
 import br.com.wagner.workshopmongo.exceptions.ResourceNotFoundException
 import br.com.wagner.workshopmongo.user.model.User
 import br.com.wagner.workshopmongo.user.repository.UserRepository
 import br.com.wagner.workshopmongo.user.service.DeleteUserService
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
