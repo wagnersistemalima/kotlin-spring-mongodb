@@ -47,7 +47,7 @@ Workshop Spring Boot com kotlin e MongoDb
 
 ![alt text](https://github.com/wagnersistemalima/kotlin-spring-mongodb/blob/main/imagens/modelo.png)
 
-![alter text](https://github.com/wagnersistemalima/kotlin-spring-mongodb/blob/main/imagens/agregado.png)
+![alter text](https://github.com/wagnersistemalima/kotlin-spring-mongodb/blob/main/imagens/agregado2.png)
 
 
 
