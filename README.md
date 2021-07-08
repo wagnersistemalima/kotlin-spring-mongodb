@@ -4,10 +4,6 @@ Workshop Spring Boot com kotlin e MongoDb
 # Descrição
 * O projeto será um sistema de usuarios que possui post, e estes post tem comentarios
 
-## Modelo de dados
-
-![alt text](https://github.com/wagnersistemalima/kotlin-spring-mongodb/blob/main/imagens/modelo.png)
-
 ## Setup do Projeto 
 
 * Linguagem de programação: Kotlin
@@ -43,6 +39,10 @@ Workshop Spring Boot com kotlin e MongoDb
 * É um banco de dados opensource, de alta performance e flexível, sendo considerado o principal banco de dados NoSQL.
 * Os banco de dados NoSQL apresentam algumas vantagens sobre os outros tipos, principalmente quando precisamos de escalabilidade, flexibilidade, bom desempenho e facilidade para consultas.
 *  O MongoDB é orientado a documentos, ou seja, os dados são armazenados como documentos, ao contrário de bancos de dados de modelo relacional, onde trabalhamos com registros em linhas e colunas. Os documentos podem ser descritos como dados no formato de chave-valor, no caso, utilizando o formato JSON (JavaScript Object Notation).
+
+## Modelo de dados
+
+![alt text](https://github.com/wagnersistemalima/kotlin-spring-mongodb/blob/main/imagens/modelo.png)
 
 ![alter text](https://github.com/wagnersistemalima/kotlin-spring-mongodb/blob/main/imagens/agregado.png)
 
