@@ -15,7 +15,6 @@ import javax.validation.Valid
 class UpdateUserController(@field:Autowired val updateUserService: UpdateUserService) {
 
     val logger = LoggerFactory.getLogger(UpdateUserController::class.java)
-
     // end point para atualizar dados de usuario
 
     @PutMapping("/{id}")
