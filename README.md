@@ -11,6 +11,9 @@ Workshop Spring Boot com kotlin e MongoDb
 * Gerenciador de dependência: Gradlle
 * Java 11
 
+## Ferramenta: Postman
+* É uma plataforma de colaboração para desenvolvimento de API. Testar as requisições e criar um ambiente de produção.
+
 ## Dependencias inicial:
 
 * Spring Web: Crie aplicativos da web, incluindo RESTful, usando Spring MVC. Usa Apache Tomcat como o contêiner embutido padrão.
@@ -46,6 +49,5 @@ Workshop Spring Boot com kotlin e MongoDb
 
 ![alter text](https://github.com/wagnersistemalima/kotlin-spring-mongodb/blob/main/imagens/agregado.png)
 
-## Postman
-* É uma plataforma de colaboração para desenvolvimento de API. Testar as requisições e criar um ambiente de produção.
+
 
