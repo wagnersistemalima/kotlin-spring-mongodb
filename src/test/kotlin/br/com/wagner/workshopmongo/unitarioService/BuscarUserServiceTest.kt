@@ -34,11 +34,16 @@ class BuscarUserServiceTest {
 
         // ação
 
+        // quando chamar userRepository.findById() deve retornar um usuario
         Mockito.`when`(userRepository.findById(idExistente)).thenReturn(user)
 
         //assertivas
 
+        // comportamento = nao deve lançar exception
         Assertions.assertDoesNotThrow { buscarUserService.findById(idExistente) }
+
+        // comportamento = verifica se foi chamado userRepository.findById()
+        Mockito.verify(userRepository, Mockito.times(1)).findById(idExistente)
     }
 
     // 2 cenario de teste
@@ -52,10 +57,15 @@ class BuscarUserServiceTest {
 
         // ação
 
-        Mockito.`when`(userRepository.findById(idNaoExistente)).thenReturn(Optional.ofNullable(null))
+        // comportamento = deve retornar vazio
+        Mockito.`when`(userRepository.findById(idNaoExistente)).thenReturn(Optional.empty())
 
         //assertivas
 
+        // deve lançar exception
         Assertions.assertThrows(ResourceNotFoundException::class.java) {buscarUserService.findById(idNaoExistente)}
+
+        // verifica se foi chamado userRepository.findById()
+        Mockito.verify(userRepository, Mockito.times(1)).findById(idNaoExistente)
     }
 }

@@ -1,6 +1,5 @@
 package br.com.wagner.workshopmongo.unitarioService
 
-import br.com.wagner.workshopmongo.exceptions.GenericValidationException
 import br.com.wagner.workshopmongo.exceptions.ResourceNotFoundException
 import br.com.wagner.workshopmongo.user.model.User
 import br.com.wagner.workshopmongo.user.repository.UserRepository
@@ -27,7 +26,7 @@ class UpdateServiceTest {
     // 1 cenario de teste / caminho feliz
 
     @Test
-    fun `não deve lançar exception, retornar um objeto de resposta para o controller`() {
+    fun `deve retornar um usuario para ser atualizado`() {
 
         // cenario
 
@@ -37,11 +36,19 @@ class UpdateServiceTest {
 
         // ação
 
+        // comportamento = deve retornar um usuario para ser atualizado
         Mockito.`when`(userRepository.findById(user.id)).thenReturn(Optional.of(user))
+
+        // comportamento = deve retornar o usuario ao salvar as modificaçoes
+        Mockito.`when`(userRepository.save(user)).thenReturn(user)
 
         //assertiva
 
+        // nao deve lançar exception
         Assertions.assertDoesNotThrow { updateUserService.update(user.id, request) }
+
+        // verifica se foi chamado o save
+        Mockito.verify(userRepository, Mockito.times(1)).save(user)
     }
 
     // 2 cenario de teste
@@ -51,17 +58,24 @@ class UpdateServiceTest {
 
         // cenario
 
+        val user = User(id = UUID.randomUUID().toString(), name = "Marina", email = "marina@zup.com.br")
+
         val idInexistente = UUID.randomUUID().toString()
 
         val request = UpdateUserRequest(email = "marina@gmail.com")
 
         // ação
 
-        Mockito.`when`(userRepository.findById(idInexistente)).thenReturn(Optional.ofNullable(null))
+        // comoportamento = deve retornar vazio
+        Mockito.`when`(userRepository.findById(idInexistente)).thenReturn(Optional.empty())
 
         //assertiva
 
+        // deve lançar exceptions
         Assertions.assertThrows(ResourceNotFoundException::class.java) {updateUserService.update(idInexistente, request)}
+
+        // verifica se foi chamado o save
+        Mockito.verify(userRepository, Mockito.times(0)).save(user)
     }
 
 }

@@ -1,5 +1,6 @@
 package br.com.wagner.workshopmongo.unitarioService
 
+import br.com.wagner.workshopmongo.MockitoHelper
 import br.com.wagner.workshopmongo.exceptions.GenericValidationException
 import br.com.wagner.workshopmongo.user.model.User
 import br.com.wagner.workshopmongo.user.repository.UserRepository
@@ -9,9 +10,7 @@ import br.com.wagner.workshopmongo.user.service.InsertUserService
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.Mockito
+import org.mockito.*
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.util.*
 
@@ -28,7 +27,7 @@ class InsertUserServiceTest {
     // 1 cenario de teste/ caminho feliz
 
     @Test
-    fun `deve converter request em entidade e devolver objeto de resposta sem lançar exception`() {
+    fun `deve salvar usuario, retornar objeto de resposta`() {
 
         // cenario
 
@@ -40,12 +39,22 @@ class InsertUserServiceTest {
 
         // ação
 
-        Mockito.`when`(userRepository.findByEmail(request.email)).thenReturn(Optional.ofNullable(null))
+        // comportamento = deve retornar vazio
+        Mockito.`when`(userRepository.findByEmail(request.email)).thenReturn(Optional.empty())
+
+        // comportamento = deve retornar usuario ao salvar
+        Mockito.`when`(userRepository.save(user)).thenReturn(user)
 
         //assertivas
 
+        // nao deve lançar exception
         Assertions.assertDoesNotThrow { insertUserService.insert(request) }
-        Assertions.assertEquals(user.id, response.id)
+        Assertions.assertDoesNotThrow { userRepository.save(user) }
+
+        // verifica se foi chamado o save
+        Mockito.verify(userRepository, Mockito.times(1)).save(user)
+
+        Assertions.assertEquals(response.id, user.id)
 
 
     }
@@ -63,11 +72,16 @@ class InsertUserServiceTest {
 
         // ação
 
+        // comportamento = deve retornar um usuario ao chamar userRepository.findByEmail()
         Mockito.`when`(userRepository.findByEmail(request.email)).thenReturn(Optional.of(user))
 
         //assertivas
 
+        // deve lançar exceptions email unico
         Assertions.assertThrows(GenericValidationException::class.java) {insertUserService.insert(request)}
+
+        // verifica se foi chamado o save
+        Mockito.verify(userRepository, Mockito.times(0)).save(user)
 
     }
 }

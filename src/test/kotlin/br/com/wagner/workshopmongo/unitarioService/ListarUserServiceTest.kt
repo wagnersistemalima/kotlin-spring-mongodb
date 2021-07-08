@@ -41,10 +41,14 @@ class ListarUserServiceTest {
 
         // ação
 
+        // comportamento = deve retornar uma lista de usuarios
         Mockito.`when`(userRepository.findAll()).thenReturn(list)
 
         // assertivas
 
         Assertions.assertEquals(response, userService.findAll())
+
+        // verifica se foi chamado findAll()
+        Mockito.verify(userRepository, Mockito.times(1)).findAll()
     }
 }

@@ -5,6 +5,7 @@ import br.com.wagner.workshopmongo.user.model.User
 import br.com.wagner.workshopmongo.user.repository.UserRepository
 import br.com.wagner.workshopmongo.user.service.DeleteUserService
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -31,13 +32,22 @@ class DeleteUserServicetest {
 
         val user = User(name = "Maria", email = "maria@gmail.com")
 
+        val idExiste = UUID.randomUUID().toString()
+
         // ação
 
-        Mockito.`when`(userRepository.findById(user.id)).thenReturn(Optional.of(user))
+        // retorna um usuario ao chamar userRepository.findById()
+        Mockito.`when`(userRepository.findById(idExiste)).thenReturn(Optional.of(user))
+
+        // nao faça nada quando chamar userRepository.delete()
+        Mockito.doNothing().`when`(userRepository).delete(user)
 
         // assertivas
 
-        Assertions.assertDoesNotThrow { deleteUserService.delete(user.id) }
+        Assertions.assertDoesNotThrow { deleteUserService.delete(idExiste) } //-> nao deve lançar exception
+
+        // verifica se foi chamado userRepository.delete()
+        Mockito.verify(userRepository, Mockito.times(1)).delete(user)
     }
 
     // 2 cenario de testes
@@ -53,10 +63,15 @@ class DeleteUserServicetest {
 
         // ação
 
-        Mockito.`when`(userRepository.findById(idInexistente)).thenReturn(Optional.ofNullable(null))
+        // retorna vazio quando chamar findById() com id que não existe
+        Mockito.`when`(userRepository.findById(idInexistente)).thenReturn(Optional.empty())
 
         // assertivas
 
+        // deve lançar exception
         Assertions.assertThrows(ResourceNotFoundException::class.java) {deleteUserService.delete(idInexistente)}
+
+        // verifica se foi chamado userRepository.delete()
+        Mockito.verify(userRepository, Mockito.times(0)).delete(user)
     }
 }
