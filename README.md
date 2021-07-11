@@ -49,5 +49,15 @@ Workshop Spring Boot com kotlin e MongoDb
 
 ![alter text](https://github.com/wagnersistemalima/kotlin-spring-mongodb/blob/main/imagens/agregado2.png)
 
+## Objetivo geral:
+* Compreender as principais diferenças entre paradigma orientado a documentos e relacional
+* Implementar operações de CRUD
+* Refletir sobre decisões de design para um banco de dados orientado a documentos
+* Implementar associações entre objetos
+* Objetos aninhados
+* Referências
+* Realizar consultas com Spring Data e MongoRepository
+
+
 
 
