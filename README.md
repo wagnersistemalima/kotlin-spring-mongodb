@@ -59,6 +59,15 @@ Workshop Spring Boot com kotlin e MongoDb
 * Realizar consultas com Spring Data e MongoRepository
 * Realizar testes automatizados
 
+## Documentação com Swagger
 
+* Objetivo: gerar documentação da API automaticamente a partir do projeto. Automatiza o processo de geração e atualização da documentação.
+* Amplamente utilizado.
+* Possui integração com várias plataformas.
+* Site: https://swagger.io
+* Swagger: responsável por processar e extrair informações
+* Swagger UI: responsável por gerar a UI da documentação
+
+![](https://github.com/wagnersistemalima/kotlin-spring-mongodb/blob/main/imagens/swagger.png)
 
 
