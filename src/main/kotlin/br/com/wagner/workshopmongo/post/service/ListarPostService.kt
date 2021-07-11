@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.stream.Collectors
 
 @Service
-class BuscarPostService(@field:Autowired val postRepository: PostRepository) {
+class ListarPostService(@field:Autowired val postRepository: PostRepository) {
 
-    val logger = LoggerFactory.getLogger(BuscarPostService::class.java)
+    val logger = LoggerFactory.getLogger(ListarPostService::class.java)
 
     // metodo contendo a logica para buscar posters de autores
 

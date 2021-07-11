@@ -3,7 +3,7 @@ package br.com.wagner.workshopmongo.postTest.unitario
 import br.com.wagner.workshopmongo.post.model.Post
 import br.com.wagner.workshopmongo.post.repository.PostRepository
 import br.com.wagner.workshopmongo.post.response.BuscarPostResponse
-import br.com.wagner.workshopmongo.post.service.BuscarPostService
+import br.com.wagner.workshopmongo.post.service.ListarPostService
 import br.com.wagner.workshopmongo.user.model.User
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -17,10 +17,10 @@ import java.util.*
 import java.util.stream.Collectors
 
 @ExtendWith(SpringExtension::class)
-class BuscarPostServiceTest {
+class ListarPostServiceTest {
 
     @field:InjectMocks
-    lateinit var buscarPostService: BuscarPostService
+    lateinit var buscarPostService: ListarPostService
 
     @field:Mock
     lateinit var postRepository: PostRepository
@@ -42,7 +42,7 @@ class BuscarPostServiceTest {
         )
 
         val post1 = Post(
-            id = idAuthorValido,
+            id = UUID.randomUUID().toString(),
             data = LocalDate.now(),
             title = "vou a praia",
             body = "no ceara",
@@ -50,7 +50,7 @@ class BuscarPostServiceTest {
         )
 
         val post2 = Post(
-            id = idAuthorValido,
+            id = UUID.randomUUID().toString(),
             data = LocalDate.now(),
             title = "vou a igreja",
             body = "no crato",

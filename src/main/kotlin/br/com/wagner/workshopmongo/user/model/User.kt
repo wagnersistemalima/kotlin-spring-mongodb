@@ -14,6 +14,7 @@ class User(
     val name: String,
     var email: String
 ){
+
     var dataRegistro = LocalDateTime.now()
 
     var updateRegistro: LocalDateTime? = null
