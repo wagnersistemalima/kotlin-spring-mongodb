@@ -57,6 +57,7 @@ Workshop Spring Boot com kotlin e MongoDb
 * Objetos aninhados
 * Referências
 * Realizar consultas com Spring Data e MongoRepository
+* Realizar testes automatizados
 
 
 
